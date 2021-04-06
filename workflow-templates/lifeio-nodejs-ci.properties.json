@@ -1,0 +1,13 @@
+{
+  "name": "Life.io Node.js Workflow",
+  "description": "Life.io CI workflow template for Node.js projects.",
+  "iconName": "nodejs",
+  "categories": [
+      "JavaScript"
+  ],
+  "filePatterns": [
+      "package.json$",
+      "^Dockerfile",
+      "^Makefile"
+  ]
+}
