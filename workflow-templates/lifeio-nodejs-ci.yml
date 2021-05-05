@@ -6,8 +6,7 @@ name: Life.io Node.js CI
 on:
   pull_request:
     branches:
-      # - $default-branch
-      - upgrade
+      - $default-branch
   push:
     branches:
       - $default-branch
