@@ -1,0 +1,12 @@
+{
+  "name": "Life.io Bootstrap-Dev for App Cluster Workflow",
+  "description": "Life.io CI workflow template to add a component to the Dev App Kubernetes cluster.",
+  "iconName": "k8s.svg",
+  "categories": [
+      "YAML"
+  ],
+  "filePatterns": [
+      "^Makefile"
+  ]
+}
+
