@@ -13,6 +13,11 @@ jobs:
       - name: Set env
         run: echo "REPO_NAME=${{ github.event.repository.name }}" >> $GITHUB_ENV
 
+      - name: Load Private Key to SSH Agent
+        uses: webfactory/ssh-agent@v0.4.1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
       - name: Generate manifests
         run: make name=$REPO_NAME env=dev flux-bootstrap
 
