@@ -3,7 +3,11 @@ on:
   workflow_dispatch
 
 jobs:
-  run:
+  lint:
+  # check whether the deploy/dev dir exists
+
+  generate-manifests:
+    needs: [lint]
     name: Generate Dev Manifests
     runs-on: ubuntu-20.04
     steps:   
@@ -18,18 +22,9 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Generate manifests
+      - name: Generate Manifests
         run: make name=$REPO_NAME env=dev flux-bootstrap
 
-      - name: Write manifests to Flux repository
-        uses: cpina/github-action-push-to-another-repository@v1.2
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.ACCESS_TOKEN }}
-        with:
-          source-directory: '/tmp/flux-system-automation.yaml'
-          target-directory: './clusters/dev/flux-system/app'
-          destination-github-username: 'GitOps-Lifeio'
-          destination-repository-name: 'hello-world'
-          target-branch: 'main'
-          user-email: GitOps-Lifeio@users.noreply.github.com
-          commit-message: "manifest generation from ${{ steps.prep.outputs.VERSION }}"
+      - name: Write Manifests
+        run: make name=$REPO_NAME env=dev cluster=app flux-write-manifests
+
