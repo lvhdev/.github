@@ -10,6 +10,11 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v2
 
+      - name: Load Private Key to SSH Agent
+        uses: webfactory/ssh-agent@v0.4.1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
       - name: Lint Repo
         run: make env=dev deploy-dir=deploy flux-lint-repo
 
