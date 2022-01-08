@@ -1,7 +1,7 @@
 {
   "name": "Bootstrap Deployment - Dev / App Cluster",
   "description": "Life.io CI workflow template to add a component to the Dev App Kubernetes cluster.",
-  "iconName": "k8s.svg",
+  "iconName": "k8s",
   "categories": [
       "YAML"
   ],
