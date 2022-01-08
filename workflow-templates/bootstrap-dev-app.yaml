@@ -4,17 +4,24 @@ on:
 
 jobs:
   lint:
-  # check whether the deploy/dev dir exists
+    name: Lint Repo
+    runs-on: ubuntu-20.04
+    steps:   
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Lint Repo
+        run: make env=dev deploy-dir=deploy flux-lint-repo
 
   generate-manifests:
     needs: [lint]
     name: Generate Dev Manifests
     runs-on: ubuntu-20.04
     steps:   
-      - name: Checkout repo
+      - name: Checkout Repo
         uses: actions/checkout@v2
 
-      - name: Set env
+      - name: Set Env
         run: echo "REPO_NAME=${{ github.event.repository.name }}" >> $GITHUB_ENV
 
       - name: Load Private Key to SSH Agent
