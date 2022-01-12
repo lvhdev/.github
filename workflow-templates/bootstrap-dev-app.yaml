@@ -16,11 +16,13 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Lint Repo
-        run: make env=dev deploy-dir=deploy flux-lint-repo
+        run: make env=dev deploy-dir=deploy flux-lint
 
   generate-manifests:
     needs: [lint]
     name: Generate Dev Manifests
+    environment:
+      name: dev
     runs-on: ubuntu-20.04
     steps:   
       - name: Checkout Repo
@@ -34,9 +36,9 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Generate Manifests
-        run: make name=$REPO_NAME env=dev flux-bootstrap
+      - name: Create Manifests
+        run: make name=$REPO_NAME env=dev flux-create
 
-      - name: Write Manifests
-        run: make name=$REPO_NAME env=dev cluster=app flux-write-manifests
+      - name: Push Manifests to Flux Repo
+        run: make name=$REPO_NAME env=dev cluster=app flux-push
 
