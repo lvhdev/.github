@@ -1,4 +1,4 @@
-name: Bootstrap Dev - App EKS
+name: Bootstrap Prod - App EKS
 on:
   workflow_dispatch
 
@@ -16,11 +16,13 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Lint Repo
-        run: make env=dev deploy-dir=deploy flux-lint
+        run: make env=prod deploy-dir=deploy flux-lint
 
   generate-manifests:
     needs: [lint]
-    name: Generate Dev Manifests
+    name: Generate Prod Manifests
+    environment:
+      name: prod
     runs-on: ubuntu-20.04
     steps:   
       - name: Checkout Repo
@@ -35,8 +37,7 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Create Manifests
-        run: make name=$REPO_NAME env=dev flux-create
+        run: make name=$REPO_NAME env=prod flux-create
 
       - name: Push Manifests to Flux Repo
-        run: make name=$REPO_NAME env=dev cluster=app flux-push
-
+        run: make name=$REPO_NAME env=prod cluster=app flux-push
