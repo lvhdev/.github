@@ -1,4 +1,4 @@
-name: Bootstrap Staging - App EKS
+name: Bootstrap Staging - App K8s
 on:
   workflow_dispatch
 

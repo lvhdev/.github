@@ -1,4 +1,4 @@
-name: Bootstrap Prod - App EKS
+name: Bootstrap Prod - App K8s
 on:
   workflow_dispatch
 
