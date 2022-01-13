@@ -1,4 +1,4 @@
-name: Bootstrap Dev - App K8s
+name: Bootstrap Staging - App K8s
 on:
   workflow_dispatch
 
@@ -16,11 +16,13 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Lint Repo
-        run: make env=dev deploy-dir=deploy flux-lint
+        run: make env=staging deploy-dir=deploy flux-lint
 
   generate-manifests:
     needs: [lint]
-    name: Generate Dev Manifests
+    name: Generate Staging Manifests
+    environment:
+      name: staging
     runs-on: ubuntu-20.04
     steps:   
       - name: Checkout Repo
@@ -35,8 +37,7 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Create Manifests
-        run: make name=$REPO_NAME env=dev flux-create
+        run: make name=$REPO_NAME env=staging flux-create
 
       - name: Push Manifests to Flux Repo
-        run: make name=$REPO_NAME env=dev cluster=app flux-push
-
+        run: make name=$REPO_NAME env=staging cluster=app flux-push

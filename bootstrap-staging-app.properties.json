@@ -1,0 +1,12 @@
+{
+  "name": "Bootstrap Deployment - Staging / App Cluster",
+  "description": "Life.io CI workflow template to add a component to the Staging App Kubernetes cluster.",
+  "iconName": "k8s",
+  "categories": [
+      "YAML"
+  ],
+  "filePatterns": [
+      "^Makefile"
+  ]
+}
+
